@@ -1,7 +1,7 @@
 #ifndef _TYPES_
 #define _TYPES_
 
-#define NULL 0x00
+#define NULL 0
 
 typedef unsigned char uchar;
 typedef unsigned int uint;
