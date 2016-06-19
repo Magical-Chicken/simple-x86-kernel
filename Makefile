@@ -1,15 +1,30 @@
+# build dirs
 CWD 	= $(shell pwd)
 BUILD_D = $(CWD)/build
 SRC_D 	= $(CWD)/src
 TARGET 	= $(CWD)/kernel
-LCONF 	= link.ld
-LOADER	= load.asm
 
+# executables
 CC 		= gcc
 ASM 	= nasm
 LL 		= ld
+QEMU 	= qemu-system-x86_64
+
+# loader conf
+LCONF 	= link.ld
+LOADER	= load.asm
+
+# build flags
 CFLAGS 	= -m32 -nostdlib -nodefaultlibs -fno-builtin -Wextra -O2 -std=gnu11
 
+# feature flags
+VGAFLAGS= -DVGA_WIDTH=80 -DVGA_HEIGHT=25
+FFLAGS  = $(VGAFLAGS)
+
+# emulation options
+EMUFLAG	= -cpu core2duo -m 1024
+
+# code ident
 INC 	= $(shell find $(CWD) -name '*.h')
 OBJ 	= $(shell find $(CWD) -name '*.c' | sed -e 's/\.c/\.o/' | sed -e 's/src/build/')
 
@@ -20,10 +35,13 @@ $(BUILD_D)/load.o: $(LOADER)
 	nasm -f elf32 -o $@ $^
 
 $(BUILD_D)/%.o: src/%.c $(INC)
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) $(FFLAGS) -c -o $@ $<
 
 test: kernel
-	qemu-system-i386 --kernel $(TARGET)
+	$(QEMU) $(EMUFLAG) -kernel $(TARGET)
+
+ctest: kernel
+	$(QEMU) $(EMUFLAG) -curses -kernel $(TARGET)
 
 clean:
 	rm -rf $(BUILD_D)/*
