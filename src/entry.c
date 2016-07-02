@@ -3,7 +3,10 @@
 void main() {
     // init
     vga_init();
-    vga_puts("hello world ");
-    for (int i = 0; i < 125; i++)
+    int i;
+    for (i = 0; i < 16 * 4; i++)
+        vga_puts("test ");
+    vga_puts("helloworld");
+    for (i = 0; i < -1 + 16 * 4 + 14; i++)
         vga_puts("test ");
 }
