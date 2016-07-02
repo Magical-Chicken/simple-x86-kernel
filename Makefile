@@ -18,7 +18,7 @@ LOADER	= load.asm
 CFLAGS 	= -m32 -nostdlib -nodefaultlibs -fno-builtin -Wextra -O2 -std=gnu11
 
 # feature flags
-VGAFLAGS= -DVGA_WIDTH=80 -DVGA_HEIGHT=25
+VGAFLAGS= -DVGA_WIDTH=80 -DVGA_HEIGHT=8
 FFLAGS  = $(VGAFLAGS)
 
 # emulation options
