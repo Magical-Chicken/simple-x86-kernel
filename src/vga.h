@@ -64,6 +64,11 @@ void vga_init();
 void vga_clear();
 
 /***
+ * increment line, scrolling text if needed
+ */
+void vga_newline();
+
+/***
  * write text
  */
 void vga_puts(char *str);
