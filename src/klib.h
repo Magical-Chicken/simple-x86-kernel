@@ -34,4 +34,9 @@ uchar inb(uint16_t port);
 void console_puts(const char *str);
 #define puts(args) console_puts(args)
 
+/***
+ * temporary function to print integers
+ */
+void puti(int i);
+
 #endif
