@@ -1,11 +1,14 @@
 #include "console.h"
 #include "klib.h"
 
-void main() {
+void entry() {
     // configure output console and enable vga output
     console_init();
     console_connect_interface(CONSOLE_INTERFACE_VGA);
 
     // welcome
-    puts("hello world");
+    puts("hello world\n");
+    puti(-12345678);
+    puts("\n");
+    puti(1491625);
 }
