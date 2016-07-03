@@ -25,4 +25,13 @@ void outb(uint16_t port, uchar val);
  */
 uchar inb(uint16_t port);
 
+/***
+ * Print functions
+ * 
+ * note: puts is just passthrough to console_puts,
+ *       console_puts re-declared in case console.h not included by caller
+ */
+void console_puts(const char *str);
+#define puts(args) console_puts(args)
+
 #endif
