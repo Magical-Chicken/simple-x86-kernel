@@ -76,3 +76,8 @@ void console_puts(const char *str) {
         }
     }
 }
+
+/***
+ * clear console
+ */
+void console_clear() { int i; CALL_ON_ACTIVE(i, clear()); }

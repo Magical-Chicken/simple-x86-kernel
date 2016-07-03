@@ -32,5 +32,6 @@ void console_connect_interface(enum console_interfaces interface);
  * output text and handle special characters
  */
 void console_puts(const char *str);
+void console_clear();
 
 #endif
