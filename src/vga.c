@@ -8,7 +8,7 @@
  * contents of current vga display
  */
 static struct vga_d_char *VGA_BUF = (struct vga_d_char *)0xB8000;
-static struct vga_state VGA_STATE;
+static struct vga_state VGA_STATE = { .fg = GREEN, .bg = BLACK };
 
 /***
  * set up vga:
@@ -18,8 +18,8 @@ static struct vga_state VGA_STATE;
  * clear screen
  */
 void vga_init() {
-    VGA_STATE.fg = GREEN, VGA_STATE.bg = BLACK;
-    vga_set_cursor_enable(false);
+    //VGA_STATE.fg = GREEN, VGA_STATE.bg = BLACK;
+    vga_set_cursor_enable(true);
     vga_clear();
 }
 
@@ -76,31 +76,25 @@ void vga_sync_cursor() {
 /***
  * either enable or disable vga cursor
  */
-void vga_set_cursor_enable(uchar enabled) {
+void vga_set_cursor_enable(bool enabled) {
     uchar start_reg_val = vga_crt_reg_get(CRT_CURSOR_START);
     // enable/disable is bit 5
-    if (enabled)
-        start_reg_val = start_reg_val | 0x20;
-    else
-        start_reg_val = start_reg_val & 0xDF;
+    if (!enabled) start_reg_val = start_reg_val | 0x20;
+    else start_reg_val = start_reg_val & 0xDF;
     vga_crt_reg_set(CRT_CURSOR_START, start_reg_val);
 }
 
 /***
- * write text to vmem
+ * write char to vmem
  */
-void vga_puts(char *str) {
-    char cur;
+void vga_putchar(const char c) {
     vga_d_char_t *pos;
-    while ((cur = *str++) != NULL) {
-        // write character and set color
-        pos = VGA_BUF + VGA_STATE.cursor_x + (VGA_STATE.cursor_y * VGA_WIDTH);
-        (*pos).c = cur;
-        (*pos).color = FORMAT_COLORS(VGA_STATE.fg, VGA_STATE.bg);
-        // update cursor position
-        if (++VGA_STATE.cursor_x >= VGA_WIDTH)
-            vga_newline();
-    }
+    // write character and set color
+    pos = VGA_BUF + VGA_STATE.cursor_x + (VGA_STATE.cursor_y * VGA_WIDTH);
+    (*pos).c = c;
+    (*pos).color = FORMAT_COLORS(VGA_STATE.fg, VGA_STATE.bg);
+    // update cursor position
+    if (++VGA_STATE.cursor_x >= VGA_WIDTH) vga_newline();
     vga_sync_cursor();
 }
 

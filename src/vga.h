@@ -116,9 +116,9 @@ void vga_update_cursor(uint16_t x, uint16_t y);
 void vga_set_cursor_enable(uchar enabled);
 
 /***
- * write text
+ * write char to vmem
  */
-void vga_puts(char *str);
+void vga_putchar(const char c);
 
 /***
  * write data to crt control register at index
