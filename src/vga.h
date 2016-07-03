@@ -86,48 +86,25 @@ typedef struct vga_state {
 } vga_state;
 
 /***
- * set up vga
+ * vga util functions
+ */
+void vga_crt_reg_set(enum vga_crt_reg_index index, uchar data);
+uchar vga_crt_reg_get(enum vga_crt_reg_index index);
+
+/***
+ * vga setup and management functions
  */
 void vga_init();
-
-/***
- * clear screen
- */
-void vga_clear();
-
-/***
- * increment line, scrolling text if needed
- */
-void vga_newline();
-
-/***
- * update the vga cursor in vga registers
- */
 void vga_sync_cursor();
-
-/***
- * update the vga cursor position
- */
+void vga_set_cursor_enable(uchar enabled);
 void vga_update_cursor(uint16_t x, uint16_t y);
 
 /***
- * either enable or disable vga cursor
+ * text output functions
  */
-void vga_set_cursor_enable(uchar enabled);
-
-/***
- * write char to vmem
- */
+void vga_clear();
+void vga_newline();
 void vga_putchar(const char c);
 
-/***
- * write data to crt control register at index
- */
-void vga_crt_reg_set(enum vga_crt_reg_index index, uchar data);
-
-/***
- * read data from crt control register at index
- */
-uchar vga_crt_reg_get(enum vga_crt_reg_index index);
 
 #endif
