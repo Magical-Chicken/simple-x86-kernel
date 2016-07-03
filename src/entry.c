@@ -1,4 +1,3 @@
-//#include "vga.h"
 #include "console.h"
 #include "klib.h"
 
@@ -8,5 +7,5 @@ void main() {
     console_connect_interface(CONSOLE_INTERFACE_VGA);
 
     // welcome
-    puts("hello world\n");
+    puts("hello world");
 }
