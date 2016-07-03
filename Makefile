@@ -34,11 +34,9 @@ kernel: $(OBJ) $(BUILD_D)/load.o
 $(BUILD_D)/load.o: $(LOADER)
 	nasm -f elf32 -o $@ $^
 
-$(BUILD_D)/%.o: src/%.c $(INC) init
-	$(CC) $(CFLAGS) $(FFLAGS) -c -o $@ $<
-
-init:
+$(BUILD_D)/%.o: src/%.c $(INC)
 	mkdir -p $(BUILD_D)
+	$(CC) $(CFLAGS) $(FFLAGS) -c -o $@ $<
 
 test: kernel
 	$(QEMU) $(EMUFLAG) -kernel $(TARGET)
