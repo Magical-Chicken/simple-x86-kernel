@@ -4,9 +4,15 @@
 #include "vga.h"
 
 /***
- * make call on all active interfaces
+ * number of registered interfaces
  */
 #define INTERFACE_COUNT 2
+
+/***
+ * make call on all active interfaces
+ *
+ * note: clobbers i
+ */
 #define CALL_ON_ACTIVE(i, call) \
     do {                                            \
         for (i = 0; i < INTERFACE_COUNT; i++)       \
