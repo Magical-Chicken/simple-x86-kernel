@@ -1,13 +1,12 @@
-#include "vga.h"
+//#include "vga.h"
+#include "console.h"
+#include "klib.h"
 
 void main() {
-    // init
-    vga_init();
-    int i;
-    for (i = 0; i < 16 * 4; i++)
-        vga_puts("test ");
-    vga_puts("helloworld");
-    vga_newline();
-    for (i = 0; i < -1 + 16 * 4 + 14; i++)
-        vga_puts("test ");
+    // configure output console and enable vga output
+    console_init();
+    console_connect_interface(CONSOLE_INTERFACE_VGA);
+
+    // welcome
+    puts("hello world\n");
 }
