@@ -15,7 +15,7 @@ LCONF 	= link.ld
 LOADER	= load.asm
 
 # build flags
-CFLAGS 	= -m32 -nostdlib -nodefaultlibs -fno-builtin -Wextra -O2 -std=gnu11
+CFLAGS 	= -m32 -nostdlib -nodefaultlibs -fno-builtin -Wextra -Wpedantic -O2 -std=gnu11
 
 # feature flags
 VGAFLAGS= -DVGA_WIDTH=80 -DVGA_HEIGHT=8
