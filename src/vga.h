@@ -106,5 +106,4 @@ void vga_clear();
 void vga_newline();
 void vga_putchar(const char c);
 
-
 #endif
