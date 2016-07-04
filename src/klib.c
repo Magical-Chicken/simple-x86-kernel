@@ -24,15 +24,15 @@ void *memcpy(void *dst, const void *src, size_t count) {
 /***
  * Write byte to port
  */
-inline void outb(uint16_t port, uchar val){
+inline void outb(uint16_t port, uint8_t val){
     asm volatile("outb %0,%1"::"a"(val), "Nd"(port));
 }
 
 /***
  * Read byte from port
  */
-inline uchar inb(uint16_t port) {
-    uchar res;
+inline uint8_t inb(uint16_t port) {
+    uint8_t res;
     asm volatile("inb %1,%0":"=a"(res):"Nd"(port));
     return res;
 }

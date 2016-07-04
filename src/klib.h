@@ -12,8 +12,8 @@ void *memcpy(void *dst, const void *src, size_t count);
 /***
  * port communication
  */
-void outb(uint16_t port, uchar val);
-uchar inb(uint16_t port);
+void outb(uint16_t port, uint8_t val);
+uint8_t inb(uint16_t port);
 
 /***
  * Print functions
