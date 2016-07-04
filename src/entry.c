@@ -9,6 +9,6 @@ void entry() {
     // welcome
     puts("hello world\n");
     puti(-12345678);
-    puts("\n");
-    puti(1491625);
+    puts("\n\t");
+    putx(1491625);
 }
