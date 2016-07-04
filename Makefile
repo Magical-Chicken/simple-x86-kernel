@@ -7,12 +7,13 @@ TARGETI	= $(CWD)/boot.iso
 
 # executables
 CC 		= gcc
-ASM 	= nasm
+ASM 	= as
 LL 		= ld
 QEMU 	= qemu-system-x86_64
 
 # build flags
 CFLAGS 	= -m32 -ffreestanding -Wextra -Wpedantic -O2 -std=gnu11
+ASFLAGS = --32
 LCONF 	= link.ld
 
 # feature flags
@@ -33,7 +34,7 @@ kernel: $(COBJ) $(ASMOBJ)
 
 $(BUILD_D)/%.o: $(SRC_D)/%.asm
 	@mkdir -p $(@D)
-	$(ASM) -f elf32 -o $@ $^
+	$(ASM) $(ASFLAGS) -o $@ $^
 
 $(BUILD_D)/%.o: $(SRC_D)/%.c $(INC)
 	@mkdir -p $(@D)
