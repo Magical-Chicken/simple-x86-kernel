@@ -11,4 +11,6 @@ void entry() {
     puti(-12345678);
     puts("\n\t");
     putx(1491625);
+    puts("\n\t");
+    putibasex(0xA5A5, 2);
 }
