@@ -50,5 +50,4 @@ ctest: grub_image
 	$(QEMU) $(EMUFLAG) -curses -kernel $(TARGETK)
 
 clean:
-	rm -rf $(BUILD_D)
-	rm -rf $(IMG_D)
+	rm -rf $(BUILD_D) $(IMG_D) $(TARGETK) $(TARGETI)
