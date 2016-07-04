@@ -4,7 +4,6 @@ BUILD_D = $(CWD)/build
 SRC_D 	= $(CWD)/src
 TARGETK	= $(CWD)/kernel
 TARGETI	= $(CWD)/boot.iso
-IMG_D 	= $(CWD)/isobuild
 
 # executables
 CC 		= gcc
@@ -21,6 +20,7 @@ VGAFLAGS= -DVGA_WIDTH=80 -DVGA_HEIGHT=8
 FFLAGS  = $(VGAFLAGS)
 
 # emulation options
+GRUB_C  = $(CWD)/grub/menu.cfg
 EMUFLAG	= -cpu core2duo -m 1024
 
 # code ident
@@ -40,14 +40,13 @@ $(BUILD_D)/%.o: $(SRC_D)/%.c $(INC)
 	$(CC) $(CFLAGS) $(FFLAGS) -c -o $@ $<
 
 grub_image: kernel
-	mkdir -p $(IMG_D)
-	@$(CWD)/tools/build_grub_img.sh $(TARGETK)
+	@$(CWD)/tools/build_grub_img.sh $(TARGETI) $(TARGETK) $(GRUB_C)
 
 test: grub_image
-	$(QEMU) $(EMUFLAG) -kernel $(TARGETK)
+	$(QEMU) $(EMUFLAG) -cdrom $(TARGETI)
 
 ctest: grub_image
-	$(QEMU) $(EMUFLAG) -curses -kernel $(TARGETK)
+	$(QEMU) $(EMUFLAG) -curses -cdrom $(TARGETI)
 
 clean:
-	rm -rf $(BUILD_D) $(IMG_D) $(TARGETK) $(TARGETI)
+	rm -rf $(BUILD_D) $(TARGETK) $(TARGETI)
