@@ -17,7 +17,7 @@ ASFLAGS = --32
 LCONF 	= link.ld
 
 # feature flags
-VGAFLAGS= -DVGA_WIDTH=80 -DVGA_HEIGHT=8
+VGAFLAGS= -DVGA_WIDTH=80 -DVGA_HEIGHT=25
 FFLAGS  = $(VGAFLAGS)
 
 # emulation options
