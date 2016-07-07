@@ -40,11 +40,11 @@ $(BUILD_D)/%.o: $(SRC_D)/%.c $(INC)
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(FFLAGS) -c -o $@ $<
 
-grub_image: kernel
-	@$(CWD)/tools/build_grub_img.sh $(TARGETI) $(TARGETK) $(GRUB_C)
+$(TARGETI): kernel
+	@$(CWD)/tools/build_grub_img.sh $@ $(TARGETK) $(GRUB_C)
 
-test: grub_image
-	$(QEMU) $(EMUFLAG) -cdrom $(TARGETI)
+test: $(TARGETI)
+	$(QEMU) $(EMUFLAG) -cdrom $<
 
 ctest: grub_image
 	$(QEMU) $(EMUFLAG) -curses -cdrom $(TARGETI)
