@@ -10,9 +10,6 @@ load_gdt:
     movw    %ax,%fs
     movw    %ax,%gs
     movw    %ax,%ss
-    # the new gdt may have caused a shift of 8 bytes, so jump to skip
-    jmp     _flush
-    ret    
-    .skip 8
-_flush:
+    # right now there is no offset specified for code in gdt, once code is
+    # loaded in a specific location a far jump will be needed here
     ret
