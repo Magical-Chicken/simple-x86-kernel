@@ -8,7 +8,7 @@
 static struct gdt_entry GDT_ENTRIES[GDT_ENTRY_COUNT];
 struct gdt_ptr GDT_PTR = {
     .limit = (sizeof(struct gdt_entry) * GDT_ENTRY_COUNT) - 1,
-    .base = (uint32_t)&GDT_ENTRIES,
+    .base = (uint32_t)GDT_ENTRIES,
 };
 
 /***
@@ -21,9 +21,9 @@ void gdt_init() {
     //        may be good to limit size for both and separate them once kernel
     //        is near its final size
     gdt_populate_struct(&GDT_ENTRIES[1], 0, ~(uint32_t)0,
-            GDT_CODE_ACCESS_RING0, 0xCF);
+            GDT_CODE_ACCESS_RING0, 0xC0);
     gdt_populate_struct(&GDT_ENTRIES[2], 0, ~(uint32_t)0,
-            GDT_DATA_ACCESS_RING0, 0xCF);
+            GDT_DATA_ACCESS_RING0, 0xC0);
 }
 
 void gdt_populate_struct(struct gdt_entry *dst, uint32_t base, uint32_t limit,
