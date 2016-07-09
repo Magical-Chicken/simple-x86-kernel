@@ -1,8 +1,10 @@
 .extern     GDT_PTR
+.extern     gdt_init
 
 .global     load_gdt
 .type       load_gdt, @function
 load_gdt:
+    call    gdt_init
     lgdt    GDT_PTR
     movw    $0x10,%ax
     movw    %ax,%ds
