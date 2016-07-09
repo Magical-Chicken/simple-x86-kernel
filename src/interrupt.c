@@ -21,5 +21,5 @@ void idt_init() {
 /***
  * register isr
  */
-void idt_register(idt_entry_t entry) {
+void idt_register(uint8_t idt_slot, void *isr) {
 }

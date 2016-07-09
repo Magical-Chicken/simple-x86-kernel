@@ -16,6 +16,11 @@ void outb(uint16_t port, uint8_t val);
 uint8_t inb(uint16_t port);
 
 /***
+ * power state modifiers
+ */
+void system_halt();
+
+/***
  * Print functions
  * 
  * note: puts is just passthrough to console_puts,

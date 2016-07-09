@@ -32,11 +32,6 @@ struct idt_entry_raw {
     uint16_t    base_high;
 } __attribute__((packed));
 
-typedef struct idt_entry_simple {
-    void *isr_pointer;
-    uint8_t int_slot;
-} idt_entry_t;
-
 /***
  * idt pointer for lidt call
  */
@@ -49,6 +44,6 @@ struct idt_ptr {
  * write idt data
  */
 void idt_init();
-void idt_register(idt_entry_t entry);
+void idt_register(uint8_t idt_slot, void *isr);
 
 #endif

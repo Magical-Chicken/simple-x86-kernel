@@ -32,7 +32,7 @@ ASMOBJ	= $(shell find $(CWD) -name '*.asm' | sed -e 's/\.asm/\.o/' | sed -e 's/s
 all: $(TARGETK) $(TARGETI)
 	@:
 
-$(TARGETK): $(COBJ) $(ASMOBJ)
+$(TARGETK): $(ASMOBJ) $(COBJ)
 	$(LL) -m elf_i386 -T $(LCONF) -o $(TARGETK) $^
 
 $(BUILD_D)/%.o: $(SRC_D)/%.asm

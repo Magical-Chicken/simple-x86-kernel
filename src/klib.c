@@ -38,6 +38,13 @@ inline uint8_t inb(uint16_t port) {
 }
 
 /***
+ * halt system
+ */
+void system_halt() {
+    while (true) asm volatile("hlt");
+}
+
+/***
  * temporary function to print integral value until printf is written
  */
 void putibasex(int num, int base) {
