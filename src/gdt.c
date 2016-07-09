@@ -21,9 +21,9 @@ void gdt_init() {
     //        may be good to limit size for both and separate them once kernel
     //        is near its final size
     gdt_populate_struct(&GDT_ENTRIES[1], 0, ~(uint32_t)0,
-            GDT_CODE_ACCESS, 0xCF);
+            GDT_CODE_ACCESS_RING0, 0xCF);
     gdt_populate_struct(&GDT_ENTRIES[2], 0, ~(uint32_t)0,
-            GDT_DATA_ACCESS, 0xCF);
+            GDT_DATA_ACCESS_RING0, 0xCF);
 }
 
 void gdt_populate_struct(struct gdt_entry *dst, uint32_t base, uint32_t limit,
