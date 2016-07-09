@@ -48,16 +48,15 @@ static struct console_interface CONSOLE_INTERFACE_NULL_SETUP = {
 /***
  * all registered interfaces
  */
-static struct console_interface *INTERFACE_REGISTRY[INTERFACE_COUNT];
+static struct console_interface *INTERFACE_REGISTRY[INTERFACE_COUNT] = {
+    &CONSOLE_INTERFACE_NULL_SETUP,
+    &CONSOLE_INTERFACE_VGA_SETUP,
+};
 
 /***
  * prep console
  */
-void console_init() {
-    // register interfaces
-    INTERFACE_REGISTRY[CONSOLE_INTERFACE_NULL] = &CONSOLE_INTERFACE_NULL_SETUP;
-    INTERFACE_REGISTRY[CONSOLE_INTERFACE_VGA]  = &CONSOLE_INTERFACE_VGA_SETUP;
-}
+void console_init() {}
 
 /***
  * connect interface
