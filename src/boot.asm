@@ -21,18 +21,26 @@ stack_top:
 
 .section .text
 
-.extern entry
-.extern gdt_init
-.extern load_gdt
-.global _start
-.type   _start, @function
+.extern     entry
+.extern     load_gdt
+.extern     load_idt
+
+.global     _start
+.type       _start, @function
 _start:
     movl    $stack_top,%esp
-    call    gdt_init
-    call    load_gdt
-    call    entry
     cli
+    call    load_gdt
+    call    load_idt
+    #call    error_init
+    #sti
+    call    entry
+    jmp     _halt
+
+.extern     _halt
+.type       _halt, @function
 _halt:
+    cli
     hlt
     jmp     _halt
 
