@@ -11,6 +11,12 @@
  */
 #define GDT_ENTRY_COUNT 3
 
+enum gdt_builtin_entries {
+    GDT_ENTRY_NULL          = 0,
+    GDT_ENTRY_KERNEL_CODE   = 1,
+    GDT_ENTRY_KERNEL_DATA   = 2,
+};
+
 /***
  * gdt segment access modes (from intel manual)
  */
@@ -88,6 +94,11 @@ struct gdt_ptr {
     uint16_t    limit;
     uint32_t    base;
 } __attribute__((packed));
+
+/***
+ * atual gdt entry array
+ */
+struct gdt_entry GDT_ENTRIES[GDT_ENTRY_COUNT];
 
 /***
  * write gdt data

@@ -18,7 +18,7 @@ uint8_t inb(uint16_t port);
 /***
  * power state modifiers
  */
-void system_halt();
+void soft_halt();
 
 /***
  * Print functions

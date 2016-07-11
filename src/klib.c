@@ -38,9 +38,9 @@ inline uint8_t inb(uint16_t port) {
 }
 
 /***
- * halt system
+ * halt system, allowing interrupts (return from entry() to do full halt)
  */
-void system_halt() {
+void soft_halt() {
     while (true) asm volatile("hlt");
 }
 

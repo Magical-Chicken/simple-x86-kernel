@@ -13,6 +13,7 @@ QEMU 	= qemu-system-x86_64
 
 # build flags
 CFLAGS 	= -m32 -ffreestanding -Wextra -Wpedantic -O2 -std=gnu11
+#ASFLAGS	= --32 -march=core2
 ASFLAGS	= --32
 LCONF 	= link.ld
 
@@ -32,12 +33,12 @@ ASMOBJ	= $(shell find $(CWD) -name '*.asm' | sed -e 's/\.asm/\.o/' | sed -e 's/s
 all: $(TARGETK) $(TARGETI)
 	@:
 
-$(TARGETK): $(ASMOBJ) $(COBJ)
+$(TARGETK): $(COBJ) $(ASMOBJ)
 	$(LL) -m elf_i386 -T $(LCONF) -o $(TARGETK) $^
 
 $(BUILD_D)/%.o: $(SRC_D)/%.asm
 	@mkdir -p $(@D)
-	$(ASM) $(ASFLAGS) -o $@ $^
+	$(ASM) $(ASFLAGS) -o $@ $<
 
 $(BUILD_D)/%.o: $(SRC_D)/%.c $(INC)
 	@mkdir -p $(@D)

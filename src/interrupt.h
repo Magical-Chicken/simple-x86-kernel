@@ -20,6 +20,15 @@ enum idt_gate_types {
     IDT_GATE_TRAP_32    = 0x0F, // Trap gate 32 bit
 };
 
+/***
+ * access specifiers for gates
+ */
+enum idt_gate_access {
+    IDT_GATE_INT_ATTR   = 0x80 | IDT_GATE_INT_32,   // P=1, DPL=0, S=0
+    IDT_GATE_TRAP_ATTR  = 0x80 | IDT_GATE_TRAP_32,  // P=1, DPL=0, S=0
+    IDT_GATE_TASK_ATTR  = 0x80 | IDT_GATE_TASK_32,  // P=1, DPL=0, S=0
+};
+
 
 /***
  * raw and simplified idt entry struct
@@ -41,9 +50,14 @@ struct idt_ptr {
 } __attribute__((packed));
 
 /***
+ * actual idt entry array
+ */
+struct idt_entry_raw IDT_ENTRIES[IDT_ENTRY_COUNT];
+
+/***
  * write idt data
  */
 void idt_init();
-void idt_register(uint8_t idt_slot, void *isr);
+void idt_register(uint8_t idt_slot, uint32_t isr, enum idt_gate_access access);
 
 #endif

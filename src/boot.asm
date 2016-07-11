@@ -28,20 +28,19 @@ stack_top:
 .global     _start
 .type       _start, @function
 _start:
-    movl    $stack_top,%esp
     cli
+    movl    $stack_top,%esp
     call    load_gdt
     call    load_idt
-    #call    error_init
+    call    error_init
     #sti
     call    entry
-    jmp     _halt
 
-.extern     _halt
-.type       _halt, @function
-_halt:
+.global     hard_halt
+.type       hard_halt, @function
+hard_halt:
     cli
     hlt
-    jmp     _halt
+    jmp     hard_halt
 
 .size _start, . - _start

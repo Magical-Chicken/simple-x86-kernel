@@ -2,10 +2,8 @@
 #include "types.h"
 
 /***
- * actual gdt entry array
  * note: gdt size limit should always be one byte than actual size
  */
-static struct gdt_entry GDT_ENTRIES[GDT_ENTRY_COUNT];
 struct gdt_ptr GDT_PTR = {
     .limit = (sizeof(struct gdt_entry) * GDT_ENTRY_COUNT) - 1,
     .base = (uint32_t)GDT_ENTRIES,
@@ -16,13 +14,14 @@ struct gdt_ptr GDT_PTR = {
  */
 void gdt_init() {
     // first entry has to be null
-    gdt_populate_struct(&GDT_ENTRIES[0], 0, 0, GDT_NULL_ACCESS, 0);
+    gdt_populate_struct(&GDT_ENTRIES[GDT_ENTRY_NULL], 0, 0,
+            GDT_NULL_ACCESS, 0);
     // FIXME: for now just using full 4G address space for both code and data,
     //        may be good to limit size for both and separate them once kernel
     //        is near its final size
-    gdt_populate_struct(&GDT_ENTRIES[1], 0, ~(uint32_t)0,
+    gdt_populate_struct(&GDT_ENTRIES[GDT_ENTRY_KERNEL_CODE], 0, ~(uint32_t)0,
             GDT_CODE_ACCESS_RING0, 0xC0);
-    gdt_populate_struct(&GDT_ENTRIES[2], 0, ~(uint32_t)0,
+    gdt_populate_struct(&GDT_ENTRIES[GDT_ENTRY_KERNEL_DATA], 0, ~(uint32_t)0,
             GDT_DATA_ACCESS_RING0, 0xC0);
 }
 

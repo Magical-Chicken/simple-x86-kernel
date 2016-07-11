@@ -1,5 +1,7 @@
 #include "console.h"
+#include "error.h"
 #include "klib.h"
+extern void err_0_isr();
 
 void entry() {
     // configure output console and enable vga output
@@ -8,4 +10,8 @@ void entry() {
 
     // welcome
     puts("hello world");
+    //asm volatile ("int %0"::"Nb"(0));
+
+    // halt execution, wait for interrupts
+    soft_halt();
 }
